@@ -1,0 +1,60 @@
+---
+import Icon from "./Icon.astro";
+import { CONTACT } from "../data/contact";
+---
+
+<section id="localizacao" class="bg-brand-cream px-5 py-20 sm:px-8 sm:py-28">
+  <div class="mx-auto max-w-6xl">
+    <div class="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
+      <div class="reveal">
+        <h2 class="font-[family-name:var(--font-display)] text-3xl font-semibold text-brand-black sm:text-4xl">
+          Estúdio perto do Marquês de Pombal
+        </h2>
+
+        <div class="mt-6 flex items-start gap-3">
+          <Icon name="map-pin" class="mt-0.5 size-5 shrink-0 text-brand-gold" />
+          <div>
+            <p class="font-medium text-brand-black">{CONTACT.endereco}</p>
+            <p class="text-sm text-brand-black/60">{CONTACT.regiao}</p>
+          </div>
+        </div>
+
+        <p class="mt-4 max-w-md text-sm text-brand-black/70">
+          Horário de atendimento sob consulta — confirme o melhor horário direto pelo WhatsApp ou
+          ao agendar pelo Fresha.
+        </p>
+
+        <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+          <a
+            href={CONTACT.mapsLinkSrc}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center gap-2 rounded-full border border-brand-black/20 px-5 py-3 text-sm font-semibold text-brand-black transition-colors hover:border-brand-gold hover:text-brand-gold-ink"
+          >
+            <Icon name="map-pin" class="size-4" />
+            Ver no mapa
+          </a>
+          <a
+            href={CONTACT.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center gap-2 rounded-full bg-brand-black px-5 py-3 text-sm font-semibold text-brand-cream transition-colors hover:bg-brand-gold hover:text-brand-black"
+          >
+            <Icon name="whatsapp" class="size-4" />
+            Confirmar horário
+          </a>
+        </div>
+      </div>
+
+      <div class="reveal overflow-hidden rounded-[1.75rem] border border-brand-black/10 shadow-soft">
+        <iframe
+          title={`Mapa com a localização do estúdio em ${CONTACT.endereco}`}
+          src={CONTACT.mapsEmbedSrc}
+          class="h-80 w-full sm:h-96"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</section>

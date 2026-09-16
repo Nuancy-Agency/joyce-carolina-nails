@@ -1,0 +1,132 @@
+---
+import Icon from "./Icon.astro";
+import { CONTACT } from "../data/contact";
+
+// Preços e durações reais, coletados na tabela de serviços do Fresha da
+// cliente (ver site-forge/research/identity.json e Análise de Instagram.md).
+// Nenhum valor foi estimado ou arredondado.
+const categorias = [
+  {
+    id: "unhas",
+    nome: "Unhas",
+    servicos: [
+      { nome: "Manicure Verniz Gel | Shellac Nails", duracao: "1h", preco: "€20" },
+      { nome: "Manicure com Banho de Gel | Gel Hard Base | BIAB", duracao: "1h30", preco: "€30" },
+      { nome: "Manutenção unhas em Gel até 4 semanas", duracao: "1h30", preco: "€35" },
+      { nome: "Nail Shielding | Blindagem das Unhas", duracao: "1h20", preco: "€24" },
+      { nome: "Aplicação extensão em Gel — Médias", duracao: "2h", preco: "€45" },
+      { nome: "Gel Polish Removal", duracao: "10min", preco: "€5" },
+    ],
+  },
+  {
+    id: "pedicure",
+    nome: "Pedicure",
+    servicos: [
+      { nome: "Pedicure Verniz Gel | Shellac Pedicure", duracao: "1h", preco: "€30" },
+      { nome: "Pedicure Clássico", duracao: "1h", preco: "€25" },
+      { nome: "Pedicure Shellac + remoção de calos", duracao: "1h", preco: "€35" },
+    ],
+  },
+  {
+    id: "sobrancelhas",
+    nome: "Sobrancelhas & Olhar",
+    servicos: [
+      { nome: "Eyebrow Threading", duracao: "20min", preco: "€12" },
+      { nome: "Brow Lamination", duracao: "sob consulta", preco: null },
+      { nome: "Lifting de Pestanas", duracao: "sob consulta", preco: null },
+    ],
+  },
+] as const;
+---
+
+<section
+  id="servicos"
+  class="bg-brand-cream px-5 py-20 sm:px-8 sm:py-28"
+  x-data={`{ ativo: '${categorias[0].id}' }`}
+>
+  <div class="mx-auto max-w-5xl">
+    <div class="reveal mx-auto max-w-2xl text-center">
+      <h2 class="font-[family-name:var(--font-display)] text-3xl font-semibold text-brand-black sm:text-4xl">
+        Serviços com preço e duração, sem surpresas
+      </h2>
+      <p class="mt-4 text-pretty text-brand-black/70">
+        Tabela real de serviços, a mesma usada no agendamento pelo Fresha.
+      </p>
+      <p class="mt-2 text-sm text-brand-black/65">
+        Brow Lamination e Lifting de Pestanas variam por avaliação individual — preço sob consulta.
+      </p>
+    </div>
+
+    <div
+      class="reveal mt-10 flex flex-wrap justify-center gap-2"
+      role="tablist"
+      aria-label="Categorias de serviço"
+      x-on:keydown.right.prevent="($event.target.nextElementSibling ?? $event.target.parentElement.firstElementChild).focus()"
+      x-on:keydown.left.prevent="($event.target.previousElementSibling ?? $event.target.parentElement.lastElementChild).focus()"
+      x-on:keydown.home.prevent="$event.target.parentElement.firstElementChild.focus()"
+      x-on:keydown.end.prevent="$event.target.parentElement.lastElementChild.focus()"
+    >
+      {
+        categorias.map((categoria) => (
+          <button
+            type="button"
+            id={`tab-${categoria.id}`}
+            role="tab"
+            aria-controls={`painel-${categoria.id}`}
+            x-on:click={`ativo = '${categoria.id}'`}
+            x-on:focus={`ativo = '${categoria.id}'`}
+            x-bind:aria-selected={`ativo === '${categoria.id}'`}
+            x-bind:tabindex={`ativo === '${categoria.id}' ? '0' : '-1'`}
+            x-bind:class={`ativo === '${categoria.id}' ? 'bg-brand-black text-brand-cream' : 'bg-white text-brand-black/70 hover:text-brand-black'`}
+            class="min-h-11 rounded-full border border-brand-black/10 px-5 py-2.5 text-sm font-semibold transition-colors"
+          >
+            {categoria.nome}
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="reveal mt-8">
+      {
+        categorias.map((categoria) => (
+          <div
+            id={`painel-${categoria.id}`}
+            role="tabpanel"
+            aria-labelledby={`tab-${categoria.id}`}
+            tabindex="0"
+            x-show={`ativo === '${categoria.id}'`}
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            class="overflow-hidden rounded-3xl border border-brand-black/10 bg-white p-2 shadow-soft"
+          >
+            <ul class="divide-y divide-brand-black/8">
+              {categoria.servicos.map((servico) => (
+                <li class="flex items-center justify-between gap-4 px-6 py-4 sm:px-8">
+                  <div class="min-w-0">
+                    <p class="truncate font-medium text-brand-black">{servico.nome}</p>
+                    <p class="text-sm text-brand-black/65">{servico.duracao}</p>
+                  </div>
+                  {servico.preco ? (
+                    <p class="shrink-0 font-[family-name:var(--font-display)] text-xl font-semibold text-brand-gold-ink tabular-nums">
+                      {servico.preco}
+                    </p>
+                  ) : (
+                    <a
+                      href={CONTACT.whatsapp}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="-my-2 inline-flex min-h-11 shrink-0 items-center px-2 text-sm font-semibold text-brand-wine underline decoration-brand-wine/40 underline-offset-4 hover:decoration-brand-wine"
+                    >
+                      Sob consulta
+                    </a>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,50 @@
+---
+import { Image } from "astro:assets";
+import sobreImage from "../assets/midia/sobre-retrato-estudio.png";
+---
+
+<section id="sobre" class="bg-white px-5 py-20 sm:px-8 sm:py-28">
+  <div class="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2 lg:gap-16">
+    <div class="reveal order-2 lg:order-1">
+      <div class="relative mx-auto max-w-sm">
+        <Image
+          src={sobreImage}
+          alt="Retrato de estúdio de Joyce Carolina, foto real (com upscaling de imagem)"
+          class="aspect-[3/4] w-full rounded-[1.75rem] object-cover shadow-soft-lg"
+          widths={[360, 560, 760]}
+          sizes="(min-width: 1024px) 380px, 80vw"
+          loading="lazy"
+        />
+        <div class="absolute -bottom-6 -left-6 hidden max-w-[13rem] rounded-2xl bg-brand-black p-5 shadow-soft-lg sm:block">
+          <p class="font-[family-name:var(--font-display)] text-lg text-balance italic text-brand-cream">
+            "Um bom acabamento tem que ser seu diferencial."
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal order-1 lg:order-2">
+      <h2 class="font-[family-name:var(--font-display)] text-3xl font-semibold text-brand-black sm:text-4xl">
+        Sobrancelhas e unhas, unidas em uma só especialista
+      </h2>
+
+      <div class="mt-6 space-y-4 text-pretty leading-relaxed text-brand-black/80">
+        <p>
+          Olá, me chamo <strong class="text-brand-black">Joyce Carolina</strong>. Tenho 29 anos e vivo em
+          Lisboa há 3 anos. Atuo na área da beleza desde os 18 anos, onde descobri não apenas uma
+          profissão, mas uma verdadeira paixão.
+        </p>
+        <p>
+          Durante a minha trajetória, especializei-me em sobrancelhas e em tudo o que envolve o
+          olhar. Com o desejo de ampliar meus horizontes profissionais, decidi aprofundar-me no
+          universo das unhas, área em que atuo há 3 anos como nail designer.
+        </p>
+        <p>
+          Hoje, uno esses dois mundos com amor, técnica e dedicação. Através de muito estudo e
+          formações constantes, busco sempre evoluir para entregar um trabalho de excelência,
+          realçando a beleza e a autoestima de cada cliente. <span aria-hidden="true">✨</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

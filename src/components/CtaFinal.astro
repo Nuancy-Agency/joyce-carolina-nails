@@ -1,0 +1,45 @@
+---
+import Icon from "./Icon.astro";
+import { CONTACT } from "../data/contact";
+---
+
+<section class="bg-brand-gold/15 px-5 py-20 sm:px-8 sm:py-24">
+  <div class="reveal mx-auto max-w-3xl text-center">
+    <h2 class="font-[family-name:var(--font-display)] text-3xl font-semibold text-brand-black sm:text-4xl">
+      Vamos marcar o seu horário?
+    </h2>
+    <p class="mt-4 text-pretty text-brand-black/75">
+      Fale direto no WhatsApp ou agende online pelo Fresha — a escolha é sua.
+    </p>
+
+    <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+      <a
+        href={CONTACT.whatsapp}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center gap-2 rounded-full bg-brand-black px-7 py-3.5 text-sm font-semibold text-brand-cream shadow-soft transition-colors hover:bg-white hover:text-brand-black"
+      >
+        <Icon name="whatsapp" class="size-4" />
+        Falar no WhatsApp
+      </a>
+      <a
+        href={CONTACT.fresha}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center gap-2 rounded-full border border-brand-black/25 px-7 py-3.5 text-sm font-semibold text-brand-black transition-colors hover:border-brand-black hover:bg-white"
+      >
+        <Icon name="calendar" class="size-4" />
+        Agendar via Fresha
+      </a>
+      <a
+        href={CONTACT.instagram}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center gap-2 rounded-full border border-brand-black/25 px-7 py-3.5 text-sm font-semibold text-brand-black transition-colors hover:border-brand-black hover:bg-white"
+      >
+        <Icon name="instagram" class="size-4" />
+        {CONTACT.handle}
+      </a>
+    </div>
+  </div>
+</section>

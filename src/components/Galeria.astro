@@ -1,0 +1,100 @@
+---
+import { Image } from "astro:assets";
+import Icon from "./Icon.astro";
+import galeria01 from "../assets/midia/galeria-01.jpg";
+import galeria03 from "../assets/midia/galeria-03-pedicure.jpg";
+import galeria04 from "../assets/midia/galeria-04.jpg";
+import galeria06 from "../assets/midia/galeria-06.jpg";
+import galeria07 from "../assets/midia/galeria-07.jpg";
+import galeria08 from "../assets/midia/galeria-08.jpg";
+import galeria10 from "../assets/midia/galeria-10.jpg";
+import galeria12 from "../assets/midia/galeria-12.jpg";
+import galeria13 from "../assets/midia/galeria-13.jpg";
+import galeria14 from "../assets/midia/galeria-14.jpg";
+import galeria15 from "../assets/midia/galeria-15.jpg";
+
+// Todas as fotos e vídeos são reais, baixados do feed/reels da própria
+// cliente (Identidade Visual/Midia, Referencias e CTAs/Site/Galeria/ e
+// /Midia/) — nenhuma imagem de banco de imagens ou gerada foi usada nesta
+// seção.
+const trabalhos: Array<
+  | { tipo: "imagem"; src: ImageMetadata; alt: string }
+  | { tipo: "video"; src: string; alt: string }
+> = [
+  { tipo: "imagem", src: galeria01, alt: "Manicure em tom branco leitoso com detalhe de strass" },
+  { tipo: "imagem", src: galeria03, alt: "Pedicure com francesinha clássica" },
+  { tipo: "imagem", src: galeria04, alt: "Manicure vermelha e detalhe em glitter prateado" },
+  { tipo: "imagem", src: galeria06, alt: "Manicure em tom vinho escuro com anéis dourados" },
+  { tipo: "imagem", src: galeria07, alt: "Detalhe de manicure realizada no estúdio" },
+  { tipo: "imagem", src: galeria08, alt: "Manicure com acabamento em gel de alto brilho" },
+  { tipo: "imagem", src: galeria10, alt: "Detalhe de manicure em tom terroso" },
+  { tipo: "imagem", src: galeria12, alt: "Detalhe de unhas com nail art minimalista" },
+  { tipo: "imagem", src: galeria13, alt: "Manicure verde vibrante com efeito de gotas d'água" },
+  { tipo: "imagem", src: galeria14, alt: "Manicure verde musgo com anel de rubi e brilhantes" },
+  { tipo: "imagem", src: galeria15, alt: "Manicure em tom vinho/magenta com acabamento em gel de alto brilho" },
+  { tipo: "video", src: "/videos/galeria-video-01.mp4", alt: "Vídeo real de trabalho de manicure realizado no estúdio" },
+];
+---
+
+<section id="galeria" class="bg-white px-5 py-20 sm:px-8 sm:py-28">
+  <div class="mx-auto max-w-6xl">
+    <div class="reveal mx-auto max-w-2xl text-center">
+      <h2 class="font-[family-name:var(--font-display)] text-3xl font-semibold text-brand-black sm:text-4xl">
+        Galeria: o trabalho fala por si
+      </h2>
+      <p class="mt-4 text-pretty text-brand-black/70">
+        Uma seleção real de manicure russa, pedicure e nail art feitos no estúdio.
+      </p>
+    </div>
+
+    <ul class="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+      {
+        trabalhos.map((item, index) => (
+          <li class="reveal group relative overflow-hidden rounded-2xl bg-brand-black/5 shadow-soft">
+            {item.tipo === "imagem" ? (
+              <Image
+                src={item.src}
+                alt={item.alt}
+                class="aspect-square w-full object-cover"
+                widths={[220, 360, 480]}
+                sizes="(min-width: 1024px) 260px, (min-width: 640px) 33vw, 50vw"
+                loading={index < 4 ? "eager" : "lazy"}
+              />
+            ) : (
+              <>
+                {/* Fallback de carregamento: sem isso, um <video> sem
+                    poster mostra uma caixa cinza vazia até decodificar o
+                    primeiro frame (achado do impeccable critique de
+                    2026-09-15). Sem ffmpeg disponível para extrair um
+                    frame real, uso um gradiente de marca + ícone de play
+                    — o vídeo cobre isso assim que tiver dados. */}
+                <div
+                  class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-brand-cream to-brand-gold-soft/50"
+                  aria-hidden="true"
+                >
+                  <Icon name="play" class="size-9 text-brand-gold-ink/70" />
+                </div>
+                <video
+                  src={item.src}
+                  aria-label={item.alt}
+                  class="relative aspect-square w-full object-cover"
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  x-data
+                  x-init="if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) $el.pause()"
+                />
+              </>
+            )}
+            <span
+              class="pointer-events-none absolute inset-0 rounded-2xl border-2 border-brand-gold opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100"
+              aria-hidden="true"
+            ></span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

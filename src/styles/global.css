@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------- */
+/* Fontes auto-hospedadas (WOFF2) — Cormorant Garamond (títulos) + Karla   */
+/* (corpo). Escolhidas pelo cliente entre 3 pares propostos — ver          */
+/* site-forge/research/identity.json:fontes.origem_da_decisao              */
+/* ---------------------------------------------------------------------- */
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/cormorant-garamond-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122;
+}
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/cormorant-garamond-italic.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122;
+}
+
+@font-face {
+  font-family: "Karla";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/karla-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122;
+}
+
+@font-face {
+  font-family: "Karla";
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/karla-italic.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Tokens de marca — vindos de site-forge/research/identity.json           */
+/* Centralizados aqui; nunca hardcoded direto nos componentes.             */
+/* ---------------------------------------------------------------------- */
+@theme {
+  --font-display: "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-body: "Karla", ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand-gold: #c9a227;
+  --color-brand-gold-soft: #ddc36b;
+  /* Variante de texto do dourado — #c9a227 mede ~2.4:1 sobre creme/branco,
+     abaixo do mínimo WCAG AA (4.5:1). Mesma matiz, mais escura, só para
+     glifos de texto sobre fundo claro; ícones/bordas/estrelas continuam
+     usando --color-brand-gold (contraste não-textual, ok como está).
+     Achado do impeccable critique de 2026-09-15 (.impeccable/critique/). */
+  --color-brand-gold-ink: #7a5f16;
+  --color-brand-black: #1a1a1a;
+  --color-brand-blush: #f4c2c2;
+  --color-brand-wine: #b5121b;
+  --color-brand-cream: #f5f0e6;
+
+  --shadow-soft: 0 1px 2px rgb(26 26 26 / 0.04), 0 8px 24px -8px rgb(26 26 26 / 0.12);
+  --shadow-soft-lg: 0 2px 4px rgb(26 26 26 / 0.06), 0 24px 48px -16px rgb(26 26 26 / 0.18);
+}
+
+[x-cloak] {
+  display: none !important;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  body {
+    background-color: var(--color-brand-cream);
+    color: var(--color-brand-black);
+    font-family: var(--font-body);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+  }
+
+  /* Foco visível consistente (web-interface-guidelines: MUST visible focus rings) */
+  :focus-visible {
+    outline: 2px solid var(--color-brand-gold);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* Reveal ao entrar no viewport — controlado via Alpine (x-intersect) e
+     respeitando prefers-reduced-motion através do bloco acima. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 0.6s ease-out,
+      transform 0.6s ease-out;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

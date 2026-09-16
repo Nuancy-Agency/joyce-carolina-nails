@@ -1,0 +1,68 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f5f0e6" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script is:inline>
+      // Evita flash de fonte não estilizada / respeita preferências do SO
+      // antes do primeiro paint (sem impacto de layout).
+      document.documentElement.style.colorScheme = "light";
+    </script>
+
+    <!-- Sem JS (bloqueado, CSP, falha de rede): o reveal-on-scroll não pode
+         deixar conteúdo em opacity:0 para sempre, e o menu mobile (Alpine)
+         não pode ficar um botão morto escondendo os links de navegação. -->
+    <noscript>
+      <style>
+        .reveal {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+        [data-js-toggle] {
+          display: none !important;
+        }
+        #menu-mobile[x-cloak] {
+          display: block !important;
+        }
+      </style>
+    </noscript>
+  </head>
+  <body class="antialiased">
+    <a
+      href="#conteudo"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-full focus:bg-brand-black focus:px-5 focus:py-3 focus:text-sm focus:font-semibold focus:text-brand-cream"
+    >
+      Saltar para o conteúdo
+    </a>
+    <slot />
+
+    <script src="../scripts/alpine-init.js"></script>
+    <script src="../scripts/reveal.js"></script>
+    <script src="../scripts/scrollspy.js"></script>
+  </body>
+</html>

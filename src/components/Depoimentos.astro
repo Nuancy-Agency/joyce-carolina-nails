@@ -1,0 +1,127 @@
+---
+import { Image } from "astro:assets";
+import Icon from "./Icon.astro";
+import { CONTACT } from "../data/contact";
+import printGabriela from "../assets/midia/depoimentos/depoimento-gabriela.jpg";
+import printCarolina from "../assets/midia/depoimentos/depoimento-carolina.jpg";
+
+// Depoimentos verbatim, reproduzidos em stories reais do Instagram da
+// própria cliente — texto e print extraídos da mesma captura de tela
+// (ver Identidade Visual/Midia, Referencias e CTAs/Site/Comentario e
+// Depoimentos/), nenhum nome ou frase inventados.
+const depoimentos = [
+  {
+    nome: "Gabriela Guedes",
+    texto:
+      "Joyce é muito tranquila, fez as minhas unhas com muita delicadeza, elas duraram 3 semanas praticamente intactas. Recomendo!",
+    print: printGabriela,
+  },
+  {
+    nome: "Carolina Valente",
+    texto:
+      "A Joyce é uma excelente profissional! Atendimento 5*, cuidadosa e atenta aos detalhes! Recomendo vivamente!",
+    print: printCarolina,
+  },
+];
+
+// Trechos de comentários reais no post fixado/publicações do Instagram
+// (verbatim, sem nome de usuário disponível na pesquisa original).
+const comentarios = [
+  "Merece tudo de melhor!!!! Muito sucesso amiga ❤️",
+  "Sua linda!! 💗👏🏽",
+];
+
+// Vídeos reais de depoimento, baixados de stories do Instagram da cliente.
+const videosDepoimento = [
+  "/videos/depoimento-video-01.mp4",
+  "/videos/depoimento-video-02.mp4",
+];
+---
+
+<section id="depoimentos" class="bg-brand-black px-5 py-20 text-brand-cream sm:px-8 sm:py-28">
+  <div class="mx-auto max-w-5xl">
+    <div class="reveal mx-auto max-w-2xl text-center">
+      <h2 class="font-[family-name:var(--font-display)] text-3xl font-semibold sm:text-4xl">
+        Quem já passou pelo estúdio conta
+      </h2>
+    </div>
+
+    <div class="reveal mx-auto mt-10 flex w-fit items-center gap-3 rounded-2xl border border-brand-gold/30 bg-white/5 px-6 py-4">
+      <div class="flex text-brand-gold" role="img" aria-label={`Nota ${CONTACT.nota} de 5 estrelas`}>
+        {Array.from({ length: 5 }).map(() => <Icon name="star" class="size-5" />)}
+      </div>
+      <p class="text-sm text-brand-cream/85">
+        <span class="font-[family-name:var(--font-display)] text-2xl font-semibold text-brand-cream">
+          {CONTACT.nota}
+        </span>{" "}
+        · {CONTACT.totalAvaliacoes} avaliações reais no Fresha
+      </p>
+    </div>
+
+    <div class="reveal mx-auto mt-12 grid max-w-4xl gap-6 sm:grid-cols-2">
+      {
+        depoimentos.map((depoimento) => (
+          <figure class="flex flex-col items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 text-center">
+            <Image
+              src={depoimento.print}
+              alt={`Print real do depoimento de ${depoimento.nome} no Instagram`}
+              class="w-full max-w-[220px] rounded-xl shadow-soft"
+              widths={[220, 320]}
+              sizes="220px"
+              loading="lazy"
+            />
+            <blockquote>
+              <p class="font-[family-name:var(--font-display)] text-lg leading-snug text-balance italic">
+                "{depoimento.texto}"
+              </p>
+              <footer class="mt-3 text-sm font-semibold tracking-wide text-brand-gold uppercase">
+                {depoimento.nome}
+              </footer>
+            </blockquote>
+          </figure>
+        ))
+      }
+    </div>
+
+    <div class="reveal mt-8 grid gap-4 sm:grid-cols-2">
+      {
+        comentarios.map((comentario) => (
+          <p class="rounded-2xl border border-white/10 bg-white/5 p-5 text-sm leading-relaxed text-brand-cream/80">
+            "{comentario}"
+            <span class="mt-2 block text-xs tracking-wide text-brand-cream/50 uppercase">
+              Comentário real no Instagram
+            </span>
+          </p>
+        ))
+      }
+    </div>
+
+    <div class="reveal mt-12">
+      <p class="text-center text-sm font-semibold tracking-wide text-brand-cream/60 uppercase">
+        Depoimentos em vídeo
+      </p>
+      <div class="mx-auto mt-5 grid max-w-2xl gap-4 sm:grid-cols-2">
+        {
+          videosDepoimento.map((video) => (
+            <div class="relative overflow-hidden rounded-2xl bg-black">
+              {/* Fallback de carregamento — ver nota equivalente em
+                  Galeria.astro. Aqui o ícone fica em dourado sobre preto,
+                  já de alto contraste, então não precisa do token
+                  gold-ink usado sobre fundo claro. */}
+              <div class="pointer-events-none absolute inset-0 flex items-center justify-center" aria-hidden="true">
+                <Icon name="play" class="size-9 text-brand-gold/70" />
+              </div>
+              <video
+                src={video}
+                class="relative aspect-[9/16] w-full object-cover"
+                controls
+                preload="metadata"
+                playsinline
+              />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

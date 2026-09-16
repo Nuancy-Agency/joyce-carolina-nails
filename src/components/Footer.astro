@@ -1,0 +1,62 @@
+---
+import Icon from "./Icon.astro";
+import { CONTACT } from "../data/contact";
+
+const anoAtual = new Date().getFullYear();
+---
+
+<footer class="border-t border-brand-black/10 bg-brand-cream px-5 py-10 sm:px-8">
+  <div class="mx-auto flex max-w-6xl flex-col items-center gap-6 text-center sm:flex-row sm:justify-between sm:text-left">
+    <div>
+      <p class="font-[family-name:var(--font-display)] text-lg font-semibold text-brand-black">
+        Joyce Carolina
+      </p>
+      <p class="text-sm text-brand-black/60">Nail Designer &amp; Sobrancelhas · Lisboa</p>
+    </div>
+
+    <nav class="flex items-center gap-4" aria-label="Redes e contato">
+      <a
+        href={CONTACT.instagram}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex size-11 items-center justify-center rounded-full border border-brand-black/15 text-brand-black transition-colors hover:border-brand-gold hover:text-brand-gold"
+        aria-label={`Abrir Instagram ${CONTACT.handle}`}
+      >
+        <Icon name="instagram" class="size-5" />
+      </a>
+      <a
+        href={CONTACT.whatsapp}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex size-11 items-center justify-center rounded-full border border-brand-black/15 text-brand-black transition-colors hover:border-brand-gold hover:text-brand-gold"
+        aria-label="Falar no WhatsApp"
+      >
+        <Icon name="whatsapp" class="size-5" />
+      </a>
+      <a
+        href={CONTACT.fresha}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex size-11 items-center justify-center rounded-full border border-brand-black/15 text-brand-black transition-colors hover:border-brand-gold hover:text-brand-gold"
+        aria-label="Agendar via Fresha"
+      >
+        <Icon name="calendar" class="size-5" />
+      </a>
+    </nav>
+
+    <p class="text-xs text-brand-black/65">
+      © {anoAtual} Joyce Carolina. Todos os direitos reservados.
+    </p>
+  </div>
+</footer>
+
+<a
+  href={CONTACT.whatsapp}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Falar no WhatsApp"
+  class="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-brand-black text-brand-cream shadow-lg transition-colors hover:bg-brand-gold hover:text-brand-black lg:hidden"
+  style="touch-action: manipulation;"
+>
+  <Icon name="whatsapp" class="size-6" />
+</a>
